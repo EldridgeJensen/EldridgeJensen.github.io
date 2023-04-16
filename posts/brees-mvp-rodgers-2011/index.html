@@ -219,7 +219,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Over a long and decorated career, Drew Brees was seen as one of the best Quarterbacks to ever play the game of football. Retiring with the NFL record for Passing Yards, Passing Touchdowns, Passing Yards, Completion Percentage, and the most 5,000+ yard seasons in NFL history. He had also won a Super Bowl and won a couple Offensive Player of the Year Awards; but the one thing Brees never got in his illustrious career was an MVP. Drew Brees’ 2010-11 regular season was one of the best in NFL history, but his team held him back from winning an MVP. Setting a new record for passing yards in a regular season which still stand as second all time, Brees was able to finish top two in MVP finalist behind Aaron Rodgers with Rodgers winning the award.</p>
+<p>Over a long and decorated career, Drew Brees was seen as one of the best Quarterbacks to ever play the game of football. Retiring with the NFL record for Passing Yards, Passing Touchdowns, Passing Yards, Completion Percentage, and the most 5,000+ yard seasons in NFL history. He had also won a Super Bowl and won a couple Offensive Player of the Year Awards; but the one thing Brees never got in his illustrious career was an MVP. He had no better argument for MVP more than the 2010-2011 NFL season. Setting a new record for passing yards in a regular season which still stand as second all time, Brees was able to finish top two in MVP finalist behind Aaron Rodgers with Rodgers winning the award.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -256,7 +256,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
@@ -269,7 +269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>Saving 7 x 5 in image</code></pre>
 </div>
 </div>
-<p>Taking a week by week look, you see that Brees really starts to separate himself near the half way point of the season passing yards wise. During that final stretch of games, he led the Saints to an 8-0 record going into the Playoffs.</p>
+<p>Taking a week by week look, you see that Brees really starts to separate himself near the half way point of the season passing yards wise. During that final stretch of games, he led the Saints to an 8-0 record going into the Playoffs. Also I took out Aaron Rodgers week 17, because he did not play that week, instead Matt Flynn threw for nearly 500 yards and 6 touchdowns, not relevant to the case, but still interesting.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -314,8 +314,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span></span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
 <span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -324,7 +324,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Aaron Rodgers MVP run was fueled by his teams 15-1 regular season, and his terrific 45 to 6 Touchdown to Interception ratio. But, even though he played great, he still did not deserve to win this award outright. Brees only lost 2 more games than Aaron Rodgers, and had much better stats than he did.</p>
+<p>Aaron Rodgers MVP run was fueled by his teams 15-1 regular season, and his terrific 45 to 6 Touchdown to Interception ratio. But, even though he played great, he still did not deserve to win this award outright. Brees only lost 2 more games than Aaron Rodgers, and had much better stats than Rodgers did.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -363,7 +363,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Drew Brees in 2011 won the AP Offensive Player of the Year award, winning 86% of the votes that year. Brees statistically was the best QB statistically this year, he was number one in passing yards where Rodgers was 5th in the league this year. Brees was also number one in passing Touchdowns where Rodgers was second. Brees also set a new NFL record with 71.4% completion percentage, which he go on to break his record three more times over the rest of his career.</p>
+<p>Brees set a new NFL record this year with a 71.4% completion percentage, which helped him secure the 2011 AP Offensive Player of the Year Award, winning with over 86% of the votes. Brees statistically was the best QB statistically this year, he was number one in passing yards where Rodgers was fifth in the league this year. Brees was also number one in passing Touchdowns where Rodgers was second. Aaron Rodgers did have a great year as well, 15-1 record and that insane TD/Int ratio was crazy, but this should not have been enough to take away the MVP from Brees.</p>
 
 
 
