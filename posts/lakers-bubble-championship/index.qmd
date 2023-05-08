@@ -1,0 +1,281 @@
+---
+title: "The Lakers 2020 Championship was one of the hardest to win in recent memory."
+author: "Eldridge Jensen"
+date: '2023-04-16'
+categories: [Lakers, LeBron James, NBA, Finals]
+image: "image.png"
+format:
+  html:
+    code-fold: true
+---
+The Los Angeles Lakers 2020 Championship as an asterix on it in the eyes of many NBA fans, dubbing the title a “Mickey Mouse Ring” or “The Bubble Ring,” which in my opinion does not give this Championship win the respect that it deserves. This win was a culmination of grit, perseverance, and doing the right thing, the players took the COVID protocols seriously and were able to stay healthy in the three month hiatus that the league had to take. Every team had the same or similar conditions during the mini off season, the Lakers just took advantage of this opportunity to rest up for the playoffs, while staying in good enough shape to still compete at a high enough level to win.
+```{r}
+#| message: false
+#| warning: false
+library(tidyverse)
+library(ggbeeswarm)
+library(ggrepel)
+library(scales)
+```
+
+```{r}
+#| message: false
+#| warning: false
+library(waffle)
+```
+
+```{r}
+#| message: false
+#| warning: false
+regseason_stats <- read_csv("data2/2020PerGame - Sheet1.csv")
+```
+
+```{r}
+#| message: false
+#| warning: false
+glimpse(regseason_stats)
+```
+
+```{r}
+#| message: false
+#| warning: false
+postseasonstats <- read.csv("data2/2020PlayoffStats - Sheet1.csv")
+```
+
+```{r}
+#| message: false
+#| warning: false
+shooting <- postseasonstats %>% 
+  group_by(Team) %>% # We need conference here to carry it over
+  summarise(
+    PlayoffTwoPt = sum(X2P),
+    PlayoffThreePt = sum(X3P),
+  ) 
+```
+
+```{r}
+#| message: false
+#| warning: false
+shootingwide <- shooting %>% 
+  pivot_longer(
+    cols=starts_with("Playoff"), 
+    names_to="Type", 
+    values_to="Points") 
+```
+
+```{r}
+#| message: false
+#| warning: false
+ggplot(shootingwide, aes(x=Team, weight=Points, fill=Type)) + 
+  geom_bar() + 
+  coord_flip()
+```
+
+```{r}
+ggplot(shootingwide, aes(x=reorder(Team, Points), weight=Points, fill=Type)) + 
+  geom_bar() + 
+  coord_flip() +
+  labs(
+    y = "Shots Attempted",
+    x = "Team",
+    title = "The Lakers relied on their shooting inside the the three point line",
+    subtitle = "They led the playoffs in two pointers made per game",
+    caption = "Source: Basketball Reference | By Eldridge Jensen"
+  ) +
+  scale_y_continuous(labels = scales::comma) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 13, face = "bold"),
+    plot.subtitle = element_text(size = 11),
+    axis.title = element_text(size = 10),
+    panel.grid.minor = element_blank()
+  )
+```
+
+```{r}
+#| message: false
+#| warning: false
+glimpse(postseasonstats)
+```
+
+```{r}
+#| message: false
+#| warning: false
+bubble_stats <- read_csv("data2/nbabubble.csv")
+```
+
+```{r}
+#| message: false
+#| warning: false
+glimpse(bubble_stats)
+```
+
+```{r}
+#| message: false
+#| warning: false
+points <- bubble_stats %>%
+  mutate(totalpoints = TeamScore + OpponentScore) %>%
+  select(totalpoints, COVID)
+```
+
+```{r}
+#| message: false
+#| warning: false
+points %>%
+  summarise(avg_points = mean(totalpoints))
+```
+
+```{r}
+#| message: false
+#| warning: false
+avg_pts_fans <- points %>%
+  group_by(COVID) %>%
+  summarise(avg_points = mean(totalpoints))
+
+avg_pts_fans
+```
+On March 11th, 2020 the NBA season was officially shut down to COVID-19 infecting the world causing a nationwide lock down and quarantine, the NBA did not resume play until July 30th, but during this period the only games that were going on were “seeding games” where the Lakers only played in 8 games where they went 3-5, this was mainly due to resting the starters, because they were locked in at the one seed after the first couple of games. The Play-ins started on August 15th and the Playoffs officially started on August 17th. In the playoffs the Lakers went 12-3 before getting to the finals and then beat the Heat 4-2. They flew threw the finals handling every team seemingly very easily.
+```{r}
+ggplot(points, aes(totalpoints, fill = COVID)) +
+  geom_density(alpha = 0.25) +
+  geom_vline(xintercept = 222.9, linewidth = 1, color = "green") +
+  geom_vline(xintercept = 231.4, linewidth = 1, color = "red") +
+  scale_fill_manual(values = c("green", "red")) +
+  theme_classic()
+ggsave("image.png")
+```
+During this time there were very little fans, family slowly started getting let in during the later series, but for the first month the only people allowed were players and staff. So without fans players were able to score more, since there was very little noise in the arenas compared to an average NBA game, players could focus more on the game, which caused an increase in scoring in the bubble. This might also have to do with the quality of teams, since the only teams in the bubble were those who were close to making the playoffs.
+```{r}
+#| message: false
+#| warning: false
+players <- read_csv("data2/playerstats.csv")
+```
+
+```{r}
+#| message: false
+#| warning: false
+glimpse(players)
+```
+
+```{r}
+#| message: false
+#| warning: false
+players %>%
+  summarise(
+    avg_points = mean(PPG),
+  )
+```
+
+```{r}
+#| message: false
+#| warning: false
+bpos <- c("PG", "SG", "SF", "PF", "C")
+
+activeplayers <- players %>%
+ filter(
+    PPG > 0  &
+    is.na(Pos) == FALSE &
+    Pos %in% bpos 
+  )
+```
+
+```{r}
+#| message: false
+#| warning: false
+ggplot() +
+  geom_beeswarm(data = activeplayers,
+                aes(x = Pos, y = PPG),
+                color = "grey")
+```
+
+```{r}
+#| message: false
+#| warning: false
+la <- players %>%
+  filter(Tm == "LAL")
+
+mi <- players %>%
+  filter(Tm == "MIA")
+```
+
+```{r}
+#| message: false
+#| warning: false
+ggplot() +
+  geom_beeswarm(data = activeplayers,
+                aes(x = Pos, y = PPG),
+                color = "grey"
+  ) +
+  geom_beeswarm(
+    data = la,
+    aes(x = Pos, y = PPG),
+    color = "purple"
+  )  +
+  
+  geom_beeswarm(
+    data = mi,
+    aes(x = Pos, y = PPG),
+    color = "red"
+  )
+```
+
+```{r}
+ggplot() +
+  geom_beeswarm(
+    data = activeplayers,
+    aes(x = Pos, y = PPG),
+    color = "grey"
+  ) +
+  geom_beeswarm(
+    data = la,
+    aes(x = Pos, y = PPG),
+    color = "#552583"
+  ) +
+  geom_beeswarm(
+    data = mi,
+    aes(x = Pos, y = PPG),
+    color = "#98002E"
+  ) +
+  geom_text_repel(
+    data = la,
+    aes(x = Pos, y = PPG, label = Player),
+    color = "black"
+  ) +
+  labs(x = "Position",
+       y = "Points Per Game",
+       title = "LeBron James and Anthony Davis were on fire in the playoffs",
+       subtitle = "James and Davis were both Top 10 in scoring on the Lakers 2020 Championship run",
+       caption = "Source: Basketball Reference | By Eldridge Jensen"
+       ) +
+  theme_grey() +
+  theme(
+    plot.title = element_text(size = 15, face = "bold"),
+    axis.title = element_text(size = 12),
+    plot.subtitle = element_text(size = 11),
+    panel.grid.minor = element_blank()
+    )
+```
+
+
+```{r}
+#| message: false
+#| warning: false
+la <- c("Offensive" = 10.5, "Defensive" = 33.5)
+
+nba <- c("Offensive" = 8.5, "Defensive" = 34.5)
+```
+
+```{r}
+#| message: false
+#| warning: false
+waffle(la, rows = 2, title="Lakers Rebounding", xlab="1 square = 1 rebound", colors = c("black", "red"))
+```
+
+```{r}
+iron(
+  waffle(la, rows = 3, title="Lakers Average Rebounding", xlab="1 Square = 1 Rebound",
+         colors = c("#552583", "#FDB927")),
+  waffle(nba, rows = 3, title="NBA Average Rebounding", xlab="1 Square = 1 Rebound",
+         colors = c("red", "blue"))
+) 
+```
